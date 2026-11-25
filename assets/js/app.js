@@ -14,8 +14,9 @@
   };
 
   firebase.initializeApp(firebaseConfig);
-  var auth = firebase.auth();
-  var db   = firebase.firestore();
+  var auth    = firebase.auth();
+  var db      = firebase.firestore();
+  var storage = firebase.storage();
 
   /* ================================================================
      HELPERS
@@ -439,9 +440,18 @@
 
     function simpanDenganGambar(gambarData) {
       if (dokumenInput.files && dokumenInput.files[0]) {
-        var dReader = new FileReader();
-        dReader.onload = function (ev) { simpan(gambarData, ev.target.result, dokumenInput.files[0].name); };
-        dReader.readAsDataURL(dokumenInput.files[0]);
+        // Upload dokumen ke Firebase Storage
+        var file = dokumenInput.files[0];
+        var storageRef = storage.ref('dokumen/' + editingId + '_' + file.name);
+        showLoading('Mengupload dokumen...');
+        storageRef.put(file).then(function (snap) {
+          return snap.ref.getDownloadURL();
+        }).then(function (url) {
+          simpan(gambarData, url, file.name);
+        }).catch(function () {
+          hideLoading();
+          toast('Gagal upload dokumen ❌');
+        });
       } else if (cleared) {
         simpan(gambarData, null, '');
       } else {
