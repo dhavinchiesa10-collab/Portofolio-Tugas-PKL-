@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portofolio Tugas PKL — SMK RPL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+<!-- ===== LOGIN ===== -->
+<div id="loginPage" class="page active">
+  <div class="login-box">
+    <div class="login-logo" id="loginLogo">
+      <img src="assets/img/Logo_SMK.png" alt="Logo SMK Negeri 1 Mejayan" id="logoImg" onerror="this.style.display='none';document.getElementById('logoFallback').style.display='block'" />
+      <span id="logoFallback" style="display:none;font-size:52px">🎓</span>
+    </div>
+    <h1 class="login-title">Portofolio Tugas PKL</h1>
+    <p class="login-sub">SMK Negeri 1 Mejayan — RPL</p>
+
+    <form id="loginForm" novalidate>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="email@siswa.com" autocomplete="email" />
+        <span class="field-err" id="emailErr"></span>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="pwd-wrap">
+          <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" />
+          <button type="button" id="togglePwd" class="pwd-eye" aria-label="Tampilkan password">👁</button>
+        </div>
+        <span class="field-err" id="pwdErr"></span>
+      </div>
+      <button type="submit" class="btn-submit" id="loginBtn">Masuk</button>
+      <button type="button" class="btn-demo" id="viewerBtn" style="margin-top:6px">👁 Masuk sebagai Pengunjung</button>
+    </form>
+  </div>
+</div>
+
+<!-- ===== DASHBOARD ===== -->
+<div id="dashPage" class="page">
+
+  <!-- Sidebar -->
+  <aside id="sidebar">
+    <div class="sb-top">
+      <span class="sb-logo">🎓 RPL</span>
+      <button id="sbClose" class="sb-close">✕</button>
+    </div>
+    <nav>
+      <a class="nav-link active" data-sec="beranda">🏠 Beranda</a>
+      <a class="nav-link" data-sec="profil">👤 Profil</a>
+    </nav>
+    <div class="sb-user">
+      <div class="avatar" id="sbAvatar">S</div>
+      <div>
+        <div class="sb-name" id="sbName">Siswa</div>
+        <div class="sb-class" id="sbClass">XI RPL</div>
+        <div class="role-badge" id="roleBadge">admin</div>
+      </div>
+    </div>
+    <button class="btn-logout" id="logoutBtn">🚪 Keluar</button>
+  </aside>
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Main -->
+  <div class="main">
+    <!-- Topbar -->
+    <header class="topbar">
+      <button id="menuBtn" class="menu-btn">☰</button>
+      <div>
+        <div class="top-title" id="topTitle">Beranda</div>
+      </div>
+      <div class="top-right">
+        <button id="themeBtn" class="theme-btn" title="Ganti tema">🌙</button>
+        <div class="avatar sm" id="topAvatar">S</div>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="content">
+
+      <!-- BERANDA -->
+      <section class="sec active" id="sec-beranda">
+
+        <div class="beranda-header">
+          <div>
+            <h2 id="welcomeName">Halo, Siswa! 👋</h2>
+            <p id="welcomeSub">Ini adalah portofolio proyek tugas PKL mu.</p>
+          </div>
+          <button class="btn-primary admin-only" id="addProyekBtn">+ Tambah Proyek</button>
+        </div>
+
+        <div class="viewer-banner">
+          👁 Anda masuk sebagai <strong>Pengunjung</strong> — hanya dapat melihat dan preview proyek.
+        </div>
+
+        <div class="proyek-grid" id="proyekGrid">
+          <!-- diisi oleh JS -->
+        </div>
+
+      </section>
+
+      <!-- PROFIL -->
+      <section class="sec" id="sec-profil">
+        <div class="sec-head">
+          <h2>Profil Saya</h2>
+        </div>
+        <div class="profil-card">
+          <div class="avatar xl" id="profilAvatar">S</div>
+          <div class="profil-info">
+            <div class="profil-name" id="profilName">Siswa</div>
+            <div class="profil-detail" id="profilDetail">XI RPL • NISN: -</div>
+            <div class="profil-email" id="profilEmail">email@siswa.com</div>
+          </div>
+        </div>
+
+        <div class="card admin-only-block">
+          <div class="card-head"><span class="card-title">✏️ Edit Profil</span></div>
+          <div class="form-grid">
+            <div class="field">
+              <label>Nama Lengkap</label>
+              <input class="f-input" id="pNama" placeholder="Nama kamu" />
+            </div>
+            <div class="field">
+              <label>Kelas</label>
+              <select class="f-input" id="pKelas">
+                <option value="X RPL">X RPL</option>
+                <option value="XI RPL">XI RPL</option>
+                <option value="XII RPL">XII RPL</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>NISN</label>
+              <input class="f-input" id="pNISN" placeholder="Nomor Induk Siswa" />
+            </div>
+            <div class="field">
+              <label>Email (tidak bisa diubah)</label>
+              <input class="f-input" id="pEmail" readonly />
+            </div>
+          </div>
+          <button class="btn-primary sm-w" id="saveProfilBtn">Simpan</button>
+        </div>
+      </section>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /dashPage -->
+
+<!-- ===== MODAL TAMBAH/EDIT PROYEK ===== -->
+<div class="modal-bg" id="modal">
+  <div class="modal-box">
+    <div class="modal-top">
+      <strong id="modalTitle">Tambah Proyek</strong>
+      <button id="modalClose" class="modal-x">✕</button>
+    </div>
+    <form id="proyekForm">
+      <div class="field">
+        <label>Judul Proyek</label>
+        <input class="f-input" id="pJudul" placeholder="cth: Aplikasi Kasir Sederhana" required />
+      </div>
+      <div class="field">
+        <label>Deskripsi</label>
+        <textarea class="f-input" id="pDeskripsi" rows="3" placeholder="Ceritakan singkat tentang proyekmu..."></textarea>
+      </div>
+      <div class="field">
+        <label>Gambar Proyek</label>
+        <input type="file" class="f-input" id="pGambarFile" accept="image/*" />
+        <small style="color:var(--text3);margin-top:4px;display:block">Upload gambar dari perangkatmu (JPG, PNG, dll)</small>
+        <div id="previewWrap" style="display:none;margin-top:10px">
+          <img id="previewImg" src="" alt="preview" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;border:1px solid var(--border)" />
+        </div>
+      </div>
+      <div class="form-row-2">
+        <div class="field">
+          <label>Mata Pelajaran</label>
+          <select class="f-input" id="pMapel">
+            <option value="Pemrograman Web">Pemrograman Web</option>
+            <option value="Basis Data">Basis Data</option>
+            <option value="Pemrograman Berorientasi Objek">PBO</option>
+            <option value="Rekayasa Perangkat Lunak">RPL</option>
+            <option value="Jaringan Komputer">Jaringan Komputer</option>
+            <option value="PKK">PKK</option>
+            <option value="Lainnya">Lainnya</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Tahun</label>
+          <input class="f-input" id="pTahun" placeholder="cth: 2025" maxlength="4" />
+        </div>
+      </div>
+      <div class="field">
+        <label>Dokumen Proyek <small>(opsional — PDF, Word, PPT, dll)</small></label>
+        <input type="file" class="f-input" id="pDokumenFile" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt" />
+        <small style="color:var(--text3);margin-top:4px;display:block">Upload file dokumen dari perangkatmu (PDF, Word, PowerPoint, dll)</small>
+        <div id="dokumenInfo" style="display:none;margin-top:8px;padding:8px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;display:none;align-items:center;gap:8px">
+          <span style="font-size:20px" id="dokumenIcon">📄</span>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:13px;font-weight:600;color:var(--text1);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" id="dokumenNama">-</div>
+            <div style="font-size:11px;color:var(--text3)" id="dokumenUkuran"></div>
+          </div>
+          <button type="button" id="hapusDokumenBtn" title="Hapus dokumen" style="background:none;border:none;cursor:pointer;font-size:16px;color:var(--text3);padding:0 4px">✕</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Link Preview <small>(opsional — Google Data Studio, Figma, YouTube, dll)</small></label>
+        <input class="f-input" id="pLink" placeholder="https://datastudio.google.com/reporting/..." />
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn-cancel" id="modalCancel">Batal</button>
+        <button type="submit" class="btn-primary">Simpan</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- LOADING OVERLAY -->
+<div id="loadingOverlay" style="display:flex;position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,0.75);align-items:center;justify-content:center;flex-direction:column;gap:14px">
+  <div style="width:40px;height:40px;border:4px solid #4f46e5;border-top-color:transparent;border-radius:50%;animation:spin 0.7s linear infinite"></div>
+  <p id="loadingText" style="color:#f1f5f9;font-size:14px;font-weight:500">Memuat...</p>
+</div>
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ===== MODAL PREVIEW ===== -->
+<div class="modal-bg" id="previewModal">
+  <div class="modal-box preview-modal-box">
+    <div class="modal-top">
+      <strong id="previewModalTitle">Preview Proyek</strong>
+      <div style="display:flex;gap:8px;align-items:center">
+        <a id="previewOpenLink" href="#" target="_blank" class="btn-sm" style="text-decoration:none">🔗 Buka</a>
+        <button id="previewModalClose" class="modal-x">✕</button>
+      </div>
+    </div>
+    <div class="preview-iframe-wrap">
+      <div class="preview-loading" id="previewLoading">
+        <div class="spinner"></div>
+        <p>Memuat preview...</p>
+      </div>
+      <div class="preview-blocked" id="previewBlocked" style="display:none">
+        <div style="font-size:48px;margin-bottom:14px">🔒</div>
+        <h3 style="margin-bottom:8px;font-size:16px">Embed diblokir</h3>
+        <p style="font-size:13px;color:var(--text2);max-width:360px;text-align:center;margin-bottom:20px">
+          Pemilik laporan belum mengizinkan embed di situs lain.<br>
+          Aktifkan di <strong>File → Setelan laporan → Sematkan konten</strong>, atau buka langsung:
+        </p>
+        <a id="blockedOpenLink" href="#" target="_blank" class="btn-primary" style="text-decoration:none;width:auto;padding:10px 24px">
+          🔗 Buka di Tab Baru
+        </a>
+      </div>
+      <iframe id="previewIframe" src="" frameborder="0" allowfullscreen
+        sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-top-navigation">
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script src="assets/js/app.js"></script>
+</body>
+</html>
